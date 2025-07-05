@@ -28,16 +28,15 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 DATABASES = {
     'default': {
         # for MySQl
-        'ENGINE': 'django.db.backends.mysql',
-        'PORT': '3306',
+        #'ENGINE': 'django.db.backends.mysql',
+        #'PORT': '3306',
 
-        # for PostgreSQL
-        # "ENGINE": "django.db.backends.postgresql",
-        # 'PORT': '5432',   # for PostgreSQL
-
+        # for PostgreSQL         
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'PORT': '5432',   # for PostgreSQL
         'NAME': 'crm_db',
-        'USER': 'crm_user',
-        'PASSWORD': 'crmpass',
+        'USER': 'postgres',
+        'PASSWORD': 'superadmin',
         'HOST': 'localhost',
     }
 }
@@ -167,8 +166,13 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Static files (CSS, JavaScript, Images)
+
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'static'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "staticfiles",
+]
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'

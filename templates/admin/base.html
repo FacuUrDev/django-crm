@@ -1,8 +1,15 @@
-{% load i18n static %}<!DOCTYPE html>
+
+{% load i18n static %}
+{% load static %}
+<!DOCTYPE html>
 {% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr,auto' }}">
 <head>
 <title>{% block title %}{% endblock %}</title>
+{% block extrahead %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom_admin.css' %}">
+{% endblock %}
 <link rel="stylesheet" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}">
 {% block dark-mode-vars %}
   <link rel="stylesheet" href="{% static "admin/css/dark_mode.css" %}">
@@ -36,7 +43,7 @@
     </style>
 {% endblock %}
 {% if LANGUAGE_BIDI %}<link rel="stylesheet" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}">{% endif %}
-{% block extrahead %}{% endblock %}
+
 {% block responsive %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static "admin/css/responsive.css" %}">
@@ -133,9 +140,10 @@
           <br class="clear">
         </div>
         <!-- END Content -->
-        {% block footer %}<div id="footer"></div>{% endblock %}
-        {# CRM: This is copyright information. Please don't change it! #}
-        <p style="font-size: small;text-align: center;"><a href="{{ project_site }}" target="_blank">{{ copyright_string }}</a></p>
+        {% block footer %}
+          {% include 'admin/partials/footer.html' %}
+        {% endblock %}
+        
       </main>
     </div>
 </div>
